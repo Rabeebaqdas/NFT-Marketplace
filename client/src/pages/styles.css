@@ -1,0 +1,57 @@
+.desc-div{
+    display: none;
+}
+
+.bg-div:hover .desc-div{
+    display: block;
+    animation-name: slide-top;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    backdrop-filter: blur(2px) brightness(0.5);
+}
+
+.gradient-css-div{
+  background-image: linear-gradient(to bottom, #90cef400,#98ffe0, #90cef400);
+}
+.gradient-css-div-2{
+  background-image: linear-gradient(to bottom, #90cef400,#fff67d, #90cef400);
+}
+.gradient-css-div-explore{
+  background-image: linear-gradient(to bottom, #90cef400,#fff895,#fff895, #90cef400);
+}
+
+.gradient-css-div-details{
+  background-image: linear-gradient(to top right, #90cef400,#90cef400,#d2fff1, #90cef400);
+}
+
+
+.login-div2{
+  background: rgba(152, 255, 224, 0.466);
+box-shadow: 0 8px 32px 0 rgba(93, 146, 130, 0.466);
+backdrop-filter: blur( 3px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.details-div{
+  background: rgba(255, 255, 255, 0.466);
+box-shadow: 0 2px 16px 0 rgba(93, 146, 130, 0.466);
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+}
+
+
+
+@keyframes slide-top {
+    0% {
+      transform: translateY(-70px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
