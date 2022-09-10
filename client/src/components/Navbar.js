@@ -1,8 +1,7 @@
-import React, { useState , useEffect} from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState} from "react";
+import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 import siteLogo from "../imgs/site-logo1.png"
-import {BiWalletAlt} from 'react-icons/bi'
 import { ConnectButton } from "web3uikit";
 
 
@@ -16,19 +15,19 @@ function Navbar() {
       href: '/',
     },
     {
-      name: 'List NFTs',
-      description: 'Explore your profile',
-      href: '/listnft',
+      name: 'Explore',
+      description: 'Dive into a Plethora of NFTs.',
+      href: '/explore',
     },
     {
-      name: 'MY NFT',
+      name: 'MY NFTs',
       description: 'Dont know what youre in for see this help guide',
       href: '/mynft',
     },
     {
-      name: 'Minted NFTs',
+      name: 'NotListedNFTs',
       description: 'NFTs Not Listed, but minted',
-      href: '/mintednft',
+      href: '/notlistednft',
     },
     {
       name: 'Mint NFT',

@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react'
 import { Modal, Input, useNotification } from 'web3uikit'
 import { useWeb3Contract } from 'react-moralis'
 import nftMarketplaceAbi from "../constants/Nftmarketplace.json"
 import {ethers} from "ethers"
 
-const UpdateListingModal = ({nftAddress,marketplaceAddress, tokenId, isVisible, onClose, price}) => {
+const UpdateListingModal = ({nftAddress,marketplaceAddress, tokenId, isVisible, onClose}) => {
     const [newPrice,setNewPrice] = useState(0)
     const dispatch = useNotification()
     const {runContractFunction: updateListing, isLoading } = useWeb3Contract({
