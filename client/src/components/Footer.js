@@ -24,7 +24,7 @@ const Footer = () => {
                 </p></Link>
               </li>
               <li>
-                <a href="#" className="hover:underline">
+                <a href="https://tailwindcss.com/" className="hover:underline" target="_blank">
                   Tailwind CSS
                 </a>
               </li>
@@ -37,14 +37,15 @@ const Footer = () => {
             <ul className="text-gray-600 dark:text-gray-400">
               <li className="mb-4">
                 <a
-                  href="#"
+                  href="https://github.com/Rabeebaqdas"
                   className="hover:underline "
+                  target="_blank"
                 >
                   Github
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline">
+                <a href="https://discord.com/" className="hover:underline" target="_blank">
                   Discord
                 </a>
               </li>
@@ -80,8 +81,9 @@ const Footer = () => {
         </span>
         <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
           <a
-            href="#"
+            href="https://www.facebook.com/rabeeb.aqdas/"
             className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            target="_blank"
           >
             <svg
               className="w-5 h-5"
@@ -97,8 +99,9 @@ const Footer = () => {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://www.instagram.com/rabeebaqdas/"
             className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            target="_blank"
           >
             <svg
               className="w-5 h-5"
@@ -114,8 +117,9 @@ const Footer = () => {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://twitter.com/AqdasRabeeb"
             className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            target="_blank"
           >
             <svg
               className="w-5 h-5"
@@ -127,8 +131,9 @@ const Footer = () => {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://github.com/Rabeebaqdas"
             className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+            target="_blank"
           >
             <svg
               className="w-5 h-5"
