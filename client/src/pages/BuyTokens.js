@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useMoralis, useWeb3Contract } from 'react-moralis'
-import { Button, Form, useNotification } from 'web3uikit'
+import { useNotification } from 'web3uikit'
 import { ethers } from "ethers"
 import networkMapping from "../constants/networkMapping.json"
 import tokenAbi from '../constants/marketplaceToken.json';
+import web3 from "../imgs/web3.svg";
+
 const BuyTokens = () => {
   const {runContractFunction, isLoading} = useWeb3Contract()
     const { chainId, account, isWeb3Enabled } = useMoralis()
@@ -11,6 +13,8 @@ const BuyTokens = () => {
     const [remaining, setRemainingTokens] = useState()
     const [price, setPrice] = useState()
     const [owner, setowner] = useState()
+    const [noOfTokens, setnoOfTokens] = useState()
+
 
 
     const [bal, setBal] = useState()
@@ -27,11 +31,11 @@ const BuyTokens = () => {
         functionName: "owner",
         params: {}  
     }
-    const ownerofContract =  await runContractFunction({
+    const ownerofContract = await runContractFunction({
         params: options
       })
-      setowner(ownerofContract)
-
+      
+     setowner(ownerofContract)
   }
 
   const avaibleTokens = async() => {
@@ -76,8 +80,9 @@ const BuyTokens = () => {
    setPrice(ethers.utils.formatEther(supply,"ether")?.toString())
   }
 
-    const buy = async(data) => {
-      const tokens = data.data[0].inputResult
+    const buy = async(e) => {
+      e.preventDefault();
+      const tokens = noOfTokens
       const value = price * tokens
          const Price = ethers.utils.parseUnits(value.toString(), "ether")?.toString()
 
@@ -107,6 +112,8 @@ const BuyTokens = () => {
           message: "ou have successfully bought the tokens",
           position: "topR"
         })
+        setnoOfTokens("")
+        setTimeout(()=>window.location.reload(),5000)
         
       }
 
@@ -151,6 +158,7 @@ const BuyTokens = () => {
           message: "Proceeds has been received successfully",
           position: "topR",
         })
+        setTimeout(()=>window.location.reload(),5000)
       }
 
       const totalAmount =async () => {
@@ -167,18 +175,24 @@ const BuyTokens = () => {
           setBal(balance)
       }
 
-
-
+    
 
   useEffect(()=>{
 
     avaibleTokens()
     remainingTokens()
      priceofToken()
-     Owner()
      totalAmount()
 
-  },[account,chainId])
+  },[account,chainId,isWeb3Enabled])
+
+  useEffect(()=>{
+    Owner()
+  },[account])
+
+
+
+
 
 
 
@@ -186,51 +200,60 @@ const BuyTokens = () => {
  
 
   return (
-    <div className='container mx-auto'>
-      <h6 className='py-4 px-4 font-bold text-2xl mb-2'>Total Supply: <i className='text-green-600 text-md'>{totalSupply} DC</i></h6>
-      <h6 className='py-4 px-4 font-bold text-2xl mb-2'>Available Tokens: <i className='text-red-600 text-md'>{remaining} DC</i></h6>
-      <h6 className='py-4 px-4 font-bold text-1xl mb-2'>Dex Coin Address: <i className='text-green-600 text-sm'>{tokenAddress}</i></h6> 
+<div className='w-full flex flex-col gradient-css-div'>
+  {
+    isWeb3Enabled ?  (
+      <div className='flex flex-row justify-around my-4'>
+      <div className='w-1/3 ring-2 ring-gray-400 m-3 rounded-md details-div '>
+        <h6 className='py-4 px-4 font-bold text-2xl mb-2'>Total Supply: <i className='text-green-600 text-md'>{totalSupply} DC</i></h6>
+        <h6 className='py-4 px-4 font-bold text-2xl mb-2'>Available Tokens: <i className='text-red-600 text-md'>{remaining} DC</i></h6>
+        <h6 className='py-4 px-4 font-bold text-1xl mb-2'>Dex Coin Address: <i className='text-green-600 text-sm'>{tokenAddress}</i></h6>
+      </div>
 
-    <div>
-         {isWeb3Enabled ?
-        <Form
-        onSubmit={buy}
-          data={[
-            {
-              name: "Number of Tokens to want to buy",
-              type: "number",
-              value: "",
-              inputWidth: "50%",
-              key: "tokenId"
-            }
-          ]}
-          title="Buy Dex Coin For minting NFT!"
-          id='Main Form'
-           isDisabled={isLoading}
-        /> : "Web3 Currently Not Enabled"}
-     
-        <div>
-{
-    isWeb3Enabled  ? 
-    (
+      <div className='w-1/3 ring-2 ring-gray-400 m-3 rounded-md details-div py-3 px-4'>
+          <>
+            <p className='text-xl font-bold text-gray-600'>Buy Dex Coin For minting NFT!</p>
+            <form className='flex flex-col' onSubmit={buy}> 
+              <input className='my-3.5 rounded-lg p-2 w-2/3 ring-1 my-8 ring-gray-400 self-center ' type="number" name="tokensNumber" id="tokensNumber" value={noOfTokens} placeholder='Number of Tokens you want to buy' onChange={(e)=>setnoOfTokens(e.target.value)} required />
+              <button type='submit' className="bg-cyan-500 py-1 w-40 h-10 self-center rounded-lg mb-4 mt-2 text-lg font-semibold text-white hover:bg-cyan-600" disabled={isLoading}>
+                Buy Tokens
+              </button>
+            </form>
+          </>
+        
 
-        <div className='ml-5'>
-                   <div className='border-b-2 my-5'></div>
-                   <h1 className='py-4 px-4 font-bold text-2xl'>Withdraw Amount!</h1>
-                   <h6 className='py-4 px-4 font-bold text-1xl mb-2'>Total Amount: <i className='text-green-600 text-lg'>{ bal && ethers.utils.formatUnits(bal, "ether")} ETH</i></h6>
-         
-      <Button size='large' text='Withdraw Proceeds' color='green' theme='colored' isFullWidth="true" onClick={withdraw} disabled={isLoading} />
-
-                </div>
-
-
-    )
-    : ""
-}
-        </div>
+      </div>
     </div>
-    </div>
+    ) : <>
+    <div className="flex py-10 flex-col w-full h-full">
+    <img src={web3} alt="nothing listed" className="self-center w-1/2 h-1/2" ></img>
+    <p className="self-center font-semibold mt-10 mb-5 text-gray-700 tracking-wide mx-3 lg:text-lg md: text-normal sm:text-md">Oops! looks like Web3 Conenction failed</p>
+</div>
+</>
+  }
 
+      <div className='flex flex-col mb-4'>
+        {
+          isWeb3Enabled ?
+            (
+
+              <div className='w-1/3 ring-2 ring-gray-400 m-3 rounded-md details-div flex flex-col self-center'>
+                <h6 className='py-4 px-4 font-bold text-2xl mb-2'>Marketplace Proceedings</h6>
+                <h6 className='py-4 px-4 font-bold text-2xl mb-2'>Total Amount <i className='text-green-600 text-lg'>{bal && ethers.utils.formatUnits(bal, "ether")} ETH</i></h6>
+                { bal > 0 &&
+                  <button onClick={withdraw} className="bg-green-500 py-1 w-44 h-10 self-center rounded-lg mb-4 mt-2 text-lg font-semibold text-white hover:bg-green-600" disabled={isLoading}>
+                  Withdraw Proceeds
+                </button>
+                } 
+              </div>
+
+
+            )
+            : ""
+        }
+      </div>
+
+    </div>
   )
 }
 
